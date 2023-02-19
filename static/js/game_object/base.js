@@ -19,9 +19,9 @@ class GameObject {
     }
 
     destory() {
-        for (let i in GameObject) {
-            if (GameObject[i] == this) {
-                GameObject.splice(i, 1);
+        for (let i in GAME_OBJECTS) {
+            if (GAME_OBJECTS[i] == this) {
+                GAME_OBJECTS.splice(i, 1);
                 break;
             }
         }
@@ -32,16 +32,22 @@ class GameObject {
 let last_timestamp;
 
 let GAME_OBJECTS_FRAME = (timestamp) => {
-    for (let obj of GameObject) {
+    for (let obj of GAME_OBJECTS) {
         if (!obj.has_call_start) {
             obj.start();
             obj.has_call_start = true;
         } else {
-            obj.timestamp = timestamp - last_timestamp;
+            obj.timedelta = timestamp - last_timestamp;
             obj.update();
         }
     }
+
     last_timestamp = timestamp;
     requestAnimationFrame(GAME_OBJECTS_FRAME);
 }
+
 requestAnimationFrame(GAME_OBJECTS_FRAME);
+
+export {
+    GameObject
+}
