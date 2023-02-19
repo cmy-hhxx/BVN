@@ -24,8 +24,13 @@ export class Player extends GameObject {
 
         this.pressed_keys = this.root.game_map.controller.pressed_keys;
 
-        this.status = 3;  // 0 站立 1 前进 2 后退 3 攻击 4 跳跃 5 挨打 6 死亡
+        this.status = 0;  // 0 站立 1 前进 2 后退 3 攻击 4 跳跃 5 挨打 6 死亡
 
+        this.animations = new Map();
+
+        this.direction = 1;
+
+        this.frame_current_cnt = 0;
 
     }
     start() {
@@ -47,29 +52,34 @@ export class Player extends GameObject {
             space = this.pressed_keys.has('Enter');
         }
 
-        if (this.status == 0 || this.status == 1) {
-            if (w) {
+        if (this.status === 0 || this.status === 1) {
+            if (space) {
+                this.status = 4;
+                this.vx = 0;
+                this.frame_current_cnt = 0;
+            } else if (w) {
                 if (d) {
                     this.vx = this.speedx;
                 } else if (a) {
-                    this.vx -= this.speedx;
-                }
-                else {
+                    this.vx = -this.speedx;
+                } else {
                     this.vx = 0;
                 }
                 this.vy = this.speedy;
                 this.status = 4;
+                this.frame_current_cnt = 0;
             } else if (d) {
                 this.vx = this.speedx;
                 this.status = 1;
             } else if (a) {
                 this.vx = -this.speedx;
-                this.status = 2;
+                this.status = 1;
             } else {
                 this.vx = 0;
                 this.status = 0;
             }
         }
+
     }
 
     update_move() {
@@ -81,7 +91,7 @@ export class Player extends GameObject {
         if (this.y > 450) {
             this.y = 450;
             this.vy = 0;
-            this.status = 0;
+            if (this.status == 4) this.status = 0;
         }
 
         if (this.x < 0) {
@@ -102,7 +112,19 @@ export class Player extends GameObject {
     }
 
     render() {
-        this.ctx.fillStyle = this.color;
-        this.ctx.fillRect(this.x, this.y, this.width, this.height);
+        // this.ctx.fillStyle = this.color;
+        // this.ctx.fillRect(this.x, this.y, this.width, this.height);
+        let status = this.status;
+
+        if (this.status === 1 && this.direction * this.vx < 0) status = 2;
+
+        let obj = this.animations.get(status);
+        if (obj && obj.loaded) {
+            let k = parseInt(this.frame_current_cnt / obj.frame_rate) % obj.frame_cnt;
+            let image = obj.gif.frames[k].image;
+            this.ctx.drawImage(image, this.x, this.y + obj.offset_y, image.width * obj.scale, image.height * obj.scale);
+        }
+
+        this.frame_current_cnt++;
     }
 }
