@@ -22,6 +22,8 @@ export class Player extends GameObject {
 
         this.ctx = this.root.game_map.ctx;
 
+        this.status = 3;  // 0 站立 1 前进 2 后退 3 攻击 4 跳跃 5 挨打 6 死亡
+
     }
     start() {
 

@@ -1,4 +1,5 @@
 import { GameObject } from '/static/js/game_object/base.js';
+import { Controller } from '/static/js/controller/base.js';
 
 
 export class GameMap extends GameObject {
@@ -10,6 +11,8 @@ export class GameMap extends GameObject {
         this.ctx = this.$canvas[0].getContext('2d');
         this.root.$kof.append(this.$canvas);
         this.$canvas.focus();
+
+        this.controller = new Controller(this.$canvas);
     }
 
     start() {
