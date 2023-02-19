@@ -11,7 +11,7 @@ export class Naluto extends Player {
     init_animations() {
         let outer = this;
 
-        let offsets = [0, 45, -26, 0, 0, 0, 0];
+        let offsets = [0, 45, -26, 0, 0, 0, 60];
         for (let i = 0; i < 7; i++) {
             let gif = GIF();
             gif.load(`/static/images/player/naluto/${i}.gif`);
@@ -31,6 +31,9 @@ export class Naluto extends Player {
 
                 if (i == 4) {
                     obj.frame_rate = 8;
+                }
+                if (i == 3) {
+                    obj.frame_rate = 2;
                 }
             }
         }
