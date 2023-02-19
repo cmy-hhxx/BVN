@@ -30,7 +30,16 @@ export class GameMap extends GameObject {
 
     update() {
         this.time_left -= this.timedelta;
-        if (this.time_left < 0) this.time_left = 0;
+        if (this.time_left < 0) {
+            this.time_left = 0;
+
+            let [a, b] = this.root.players;
+            if (a.status !== 6 && b.status !== 6) {
+                a.status = b.status = 6;
+                a.frame_current_cnt = b.fame_current_cnt = 0;
+                a.vx = b.vx = 0;
+            }
+        }
 
         this.$timer.text(parseInt(this.time_left / 1000));
         this.render();
