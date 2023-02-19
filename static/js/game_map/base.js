@@ -20,6 +20,8 @@ export class GameMap extends GameObject {
         <div class="kof-head-hp-1"><div><div></div></div></div>
     </div>`));
 
+        this.time_left = 60000;
+        this.$timer = this.root.$kof.find(`.kof-head-timer`);
     }
 
     start() {
@@ -27,6 +29,10 @@ export class GameMap extends GameObject {
     }
 
     update() {
+        this.time_left -= this.timedelta;
+        if (this.time_left < 0) this.time_left = 0;
+
+        this.$timer.text(parseInt(this.time_left / 1000));
         this.render();
     }
 
