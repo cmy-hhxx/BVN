@@ -195,17 +195,17 @@ export class Player extends GameObject {
     }
 
     render() {
-        // this.ctx.fillStyle = this.color;
-        // this.ctx.fillRect(this.x, this.y, this.width, this.height);
+        this.ctx.fillStyle = this.color;
+        this.ctx.fillRect(this.x, this.y, this.width, this.height);
         let status = this.status;
-        // if (this.direction > 0) {
-        //     this.ctx.fillStyle = 'purple';
-        //     this.ctx.fillRect(this.x + 110, this.y + 20, 60, 30);
+        if (this.direction > 0) {
+            this.ctx.fillStyle = 'purple';
+            this.ctx.fillRect(this.x + 110, this.y + 20, 60, 30);
 
-        // } else {
-        //     this.ctx.fillStyle = 'black';
-        //     this.ctx.fillRect(this.x + this.width - 60 - 60, this.y + 20, 60, 30);
-        // }
+        } else {
+            this.ctx.fillStyle = 'black';
+            this.ctx.fillRect(this.x + this.width - 60 - 60, this.y + 20, 60, 30);
+        }
 
 
         if (this.status === 1 && this.direction * this.vx < 0) status = 2;
