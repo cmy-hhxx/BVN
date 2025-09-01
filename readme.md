@@ -27,6 +27,10 @@ BVN/
     └── index.html     # 游戏入口
 ```
 
+![项目结构](https://raw.githubusercontent.com/cmy-hhxx/cloudpic/main/img/image-20230220114905709.png)
+
+![整体架构](https://raw.githubusercontent.com/cmy-hhxx/cloudpic/main/img/image-20230220114040474.png)
+
 ## 核心技术实现
 
 ### 游戏循环与对象管理
@@ -63,6 +67,8 @@ let GAME_OBJECTS_FRAME = (timestamp) => {
 | 5 | 受击 | 0,6 |
 | 6 | 死亡 | 终态 |
 
+![状态机图](https://raw.githubusercontent.com/cmy-hhxx/cloudpic/main/img/image-20230220122043080.png)
+
 ### 输入处理
 
 使用Set结构实时记录按键状态，支持组合键操作：
@@ -86,6 +92,8 @@ is_collided(r1, r2) {
 }
 ```
 
+![碰撞检测示意图](https://raw.githubusercontent.com/cmy-hhxx/cloudpic/main/img/image-20230220123007438.png)
+
 ### GIF动画渲染
 
 使用第三方库解析GIF帧，实现流畅的角色动画：
@@ -96,6 +104,16 @@ let image = obj.gif.frames[k].image;
 this.ctx.drawImage(image, this.x, this.y + obj.offset_y, 
                   image.width * obj.scale, image.height * obj.scale);
 ```
+
+游戏效果展示：
+
+![游戏截图1](https://raw.githubusercontent.com/cmy-hhxx/cloudpic/main/img/image-20230220122548595.png)
+
+![游戏截图2](https://raw.githubusercontent.com/cmy-hhxx/cloudpic/main/img/image-20230220122647690.png)
+
+![游戏截图3](https://raw.githubusercontent.com/cmy-hhxx/cloudpic/main/img/image-20230220122701121.png)
+
+![游戏截图4](https://raw.githubusercontent.com/cmy-hhxx/cloudpic/main/img/image-20230220122715964.png)
 
 ## 控制说明
 
